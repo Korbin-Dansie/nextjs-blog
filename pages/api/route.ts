@@ -1,10 +1,13 @@
 // import the Request and Response classes
 
-import { NextResponse, NextRequest } from 'next/server'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 // define and export the GET handler function
 
-export async function GET(request: Request) {
+export default async function handler(  
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   // this is going to be my JSON response
 
   const results = {
@@ -13,5 +16,5 @@ export async function GET(request: Request) {
 
   // response with the JSON object
 
-  return NextResponse.json(results)
+  return res.json(results)
 }

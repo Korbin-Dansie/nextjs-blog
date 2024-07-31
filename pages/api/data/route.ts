@@ -10,11 +10,14 @@ import mysql from 'mysql2/promise'
 
 // and the IDBSettings object interface
 
-import { GetDBSettings, IDBSettings } from '../data/db.connection'
+// import { GetDBSettings, IDBSettings } from '../data/db.connection'
+import { GetDBPoolSettings, IDBPoolSettings } from '../../../data/db.pool'
+import { UserRepository } from '../../../data/repository/UserRepository'
 
 // 1. populate the connection parameters
 
-let connectionParams = GetDBSettings()
+// let connectionParams = GetDBSettings()
+// let poolParams = GetDBPoolSettings()
 
 // define and export the GET handler function
 
@@ -23,29 +26,33 @@ export default async function handler(
     res: NextApiResponse
   ) {
   try {
+
     // 2. connect to database
 
-    const connection = await mysql.createConnection(connectionParams)
+    // const connection = await mysql.createPool(poolParams)
 
-    // 3. create a query to fetch data
+    // // 3. create a query to fetch data
 
-    let get_exp_query = ''
+    // let get_exp_query = ''
 
-    get_exp_query = 'select (Username) from customers';
+    // get_exp_query = 'select * from user';
 
-    // we can use this array to pass parameters to the SQL query
+    // // we can use this array to pass parameters to the SQL query
 
-    let values: any[] = []
+    // let values: any[] = []
 
-    // 4. exec the query and retrieve the results
+    // // 4. exec the query and retrieve the results
 
-    const [results] = await connection.query(get_exp_query, values)
+    // const [results] = await connection.query(get_exp_query, values)
 
-    // 5. close the connection when done
+    // // 5. close the connection when done
 
-    connection.end()
+    // connection.end()
 
-    // return the results as a JSON API response
+    // // return the results as a JSON API response
+    const users = new UserRepository();
+
+    let [results] = await users.findAll();
 
     return res.json(results)
   } catch (err) {

@@ -20,6 +20,10 @@ export default function Home() {
         width={144} // Desired size with correct aspect ratio
         alt="Your Name"
       />
+
+      <h1 className={styles.title}>
+        <Link href="/api/users/GetAll">Link To Api</Link>
+      </h1>
     </>
   );
 }

@@ -1,5 +1,5 @@
-import { IUnitOfWork } from "./IUnitOfWork";
-import { IRepository } from "./IRepository";
+import { IUnitOfWork } from "../data/interface/IUnitOfWork";
+import { IRepository } from "../data/interface/IRepository";
 import { User } from "./user";
 import { GenericRepository } from "./GenericRepository";
 import { ApplicationDbContext } from "./ApplicationDbContext";

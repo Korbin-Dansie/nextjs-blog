@@ -1,5 +1,5 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
-import { IRepository } from "../IRepository";
+import { IRepository } from "../interface/IRepository";
 
 export class UserRepository<User> implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
@@ -9,8 +9,8 @@ export class UserRepository<User> implements IRepository<User> {
     this._dbContext = new ApplicationDbContext();
     this.tableName = "user";
   }
-
-  public findById(id: string): Promise<User | undefined> {
+  
+  getById(id: string): Promise<User | undefined> {
     try {
       const [results] = this._dbContext.connection.query(
         "SELECT * FROM ? WHERE `id` = ?",
@@ -22,13 +22,24 @@ export class UserRepository<User> implements IRepository<User> {
     }
   }
 
-  public findAll(): Promise<User[]> {
+  getAll(): Promise<User[]> {
     try {
-      const results = this._dbContext.connection.query(`SELECT * FROM ${this.tableName};`);
+      const results = this._dbContext.connection.query(
+        `SELECT * FROM ${this.tableName};`
+      );
       return results;
     } catch (err) {
       console.log(err);
     }
+  }
+  create(entity: User): Promise<undefined> {
+    throw new Error("Method not implemented.");
+  }
+  update(entity: User): Promise<undefined> {
+    throw new Error("Method not implemented.");
+  }
+  delete(entity: User): Promise<undefined> {
+    throw new Error("Method not implemented.");
   }
 
   save(entity: User): Promise<void> {

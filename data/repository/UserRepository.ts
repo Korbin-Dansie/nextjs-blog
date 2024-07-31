@@ -22,7 +22,7 @@ export class UserRepository<User> implements IRepository<User> {
     }
   }
 
-  getAll(): Promise<User[]> {
+  public getAll(): Promise<User[]> {
     try {
       const results = this._dbContext.connection.query(
         `SELECT * FROM ${this.tableName};`

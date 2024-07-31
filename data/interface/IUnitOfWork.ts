@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "../../core/models/user";
 import { IRepository } from "./IRepository";
 
 export interface IUnitOfWork {

@@ -1,6 +1,6 @@
 import { IUnitOfWork } from "../data/interface/IUnitOfWork";
 import { IRepository } from "../data/interface/IRepository";
-import { User } from "./user";
+import { User } from "../core/models/user";
 import { GenericRepository } from "./GenericRepository";
 import { ApplicationDbContext } from "./ApplicationDbContext";
 

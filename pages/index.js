@@ -21,9 +21,14 @@ export default function Home() {
         alt="Your Name"
       />
 
-      <h1 className={styles.title}>
-        <Link href="/api/users/GetAll">Link To Api</Link>
-      </h1>
+      <ul>
+        <li>
+          <Link href="/users/GetAll">Users - Get All</Link>
+        </li>
+        <li>
+          <Link href="/users/Create">Users - Create</Link>
+        </li>
+      </ul>
     </>
   );
 }

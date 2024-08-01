@@ -29,14 +29,9 @@ export class UserRepository<User> implements IRepository<User> {
       // const results = this._dbContext.connection.query(
       //   `SELECT * FROM ${this.tableName};`
       // );
-      const data:  Promise<User[]> = this._dbContext.connection.select('*').from(this.tableName).limit(10);
-      // const numberOfRows = this._dbContext.connection.count('id').first().from(this.tableName).toSQL().toNative();
-      // console.log(numberOfRows);
-      return data;
 
-      // return knex(this.tableName).select().from<User>(this.tableName).then(data: <User> => {
-      //   console.log(data);
-      // }).catch((err) => console.log(err));;
+      const data:  Promise<User[]> = this._dbContext.connection.select().from(this.tableName).limit(10);
+      return data;
 
     } catch (err) {
       console.log(err);

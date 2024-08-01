@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { User } from "../../core/models/user";
 
 export default function Page() {
-  const [data, setData] = useState<User[]>(null);
+  const [data, setData] = useState<User[]>([]);
   const [isLoading, setLoading] = useState(true);
   let users: User[] = [];
   const rows = [];
@@ -25,7 +25,7 @@ export default function Page() {
     <ul>
         <li>Super Data</li>
         {data.map((user) => (
-            <li key={user.id}>{user.first_name}</li>
+            <li key={user.id}>{user.id}</li>
         ))}
     </ul>
   </div>;

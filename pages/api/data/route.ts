@@ -11,7 +11,7 @@ import mysql from 'mysql2/promise'
 // and the IDBSettings object interface
 
 // import { GetDBSettings, IDBSettings } from '../data/db.connection'
-import { GetDBPoolSettings, IDBPoolSettings } from '../../../data/db.pool'
+import { GetDBPoolSettings, IDBPoolSettings } from '../../../data/connection/db.pool'
 import { UserRepository } from '../../../data/repository/UserRepository'
 
 // 1. populate the connection parameters
@@ -52,7 +52,7 @@ export default async function handler(
     // // return the results as a JSON API response
     const users = new UserRepository();
 
-    let [results] = await users.findAll();
+    let [results] = await users.getAll();
 
     return res.json(results)
   } catch (err) {

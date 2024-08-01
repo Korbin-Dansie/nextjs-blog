@@ -1,5 +1,7 @@
+import knex from "knex";
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
+import { User } from "../../core/models/user";
 
 export class UserRepository<User> implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
@@ -24,10 +26,18 @@ export class UserRepository<User> implements IRepository<User> {
 
   public getAll(): Promise<User[]> {
     try {
-      const results = this._dbContext.connection.query(
-        `SELECT * FROM ${this.tableName};`
-      );
-      return results;
+      // const results = this._dbContext.connection.query(
+      //   `SELECT * FROM ${this.tableName};`
+      // );
+      const data:  Promise<User[]> = this._dbContext.connection.select('*').from(this.tableName).limit(10);
+      // const numberOfRows = this._dbContext.connection.count('id').first().from(this.tableName).toSQL().toNative();
+      // console.log(numberOfRows);
+      return data;
+
+      // return knex(this.tableName).select().from<User>(this.tableName).then(data: <User> => {
+      //   console.log(data);
+      // }).catch((err) => console.log(err));;
+
     } catch (err) {
       console.log(err);
     }

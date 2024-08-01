@@ -1,16 +1,7 @@
-export interface IDBSettings {
-    host: string
-  
-    port: number
-  
-    user: string
-  
-    password: string
-  
-    database: string
-  }
-  
-  export const GetDBSettings = (): IDBSettings => {
+import { PoolOptions } from 'mysql2';
+
+
+  export const GetDBPoolSettings = (): PoolOptions => {
     const env = process.env.NODE_ENV
   
     // if (env == 'development')
@@ -36,6 +27,8 @@ export interface IDBSettings {
         password: process.env.db_password!,
   
         database: process.env.db_database!,
+
+        connectionLimit: 10,
       }
   }
   

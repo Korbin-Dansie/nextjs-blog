@@ -6,7 +6,7 @@ import { UserRepository } from '../../../data/repository/UserRepository'
 
 // define and export the GET handler function
 
-export default async function handler(  
+export default async function Handler(  
     req: NextApiRequest,
     res: NextApiResponse
   ) {
@@ -15,6 +15,7 @@ export default async function handler(
     const users = new UserRepository();
 
     let [results] = await users.getAll();
+    console.log(results)
 
     // return the results as a JSON API response
     return res.json(results)

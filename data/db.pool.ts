@@ -1,4 +1,4 @@
-import { IDBSettings } from "./db.connection"
+import { PoolOptions } from 'mysql2';
 
 export interface IDBPoolSettings {
     host: string
@@ -14,7 +14,7 @@ export interface IDBPoolSettings {
     connectionLimit: number
   }
   
-  export const GetDBPoolSettings = (): IDBPoolSettings => {
+  export const GetDBPoolSettings = (): PoolOptions => {
     const env = process.env.NODE_ENV
   
     // if (env == 'development')

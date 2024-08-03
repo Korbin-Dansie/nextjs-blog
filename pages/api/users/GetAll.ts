@@ -14,7 +14,9 @@ export default async function handler(
     // connect to database
     const users = new UserRepository();
 
-    let [results] = await users.getAll();
+    let results = await users.getAll();
+    console.log("The results are...")
+    console.log(results)
 
     // return the results as a JSON API response
     return res.json(results)

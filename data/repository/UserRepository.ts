@@ -1,5 +1,7 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
+import { UserDOA } from "./data.access.object/userDAO";
+import { User } from "../../core/models/user";
 
 export class UserRepository<User> implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
@@ -22,12 +24,35 @@ export class UserRepository<User> implements IRepository<User> {
     }
   }
 
-  public getAll(): Promise<User[]> {
+  public async getAll(): Promise<User[]> {
     try {
       const results = this._dbContext.connection.query(
         `SELECT * FROM ${this.tableName};`
-      );
-      return results;
+      )
+      // results.resolve(results.map((entity: UserDOA) => {entity.convert()}))
+      // results.resolve(console.debug("Got Here"))
+      // await results.then(
+      //   enity => {
+      //     enity[0].forEach(user => {
+      //       let userDAO: UserDOA = new UserDOA(user);
+      //       user = JSON.stringify(userDAO.convertToBusinessClass());
+      //       console.debug("The user data is...");
+      //       console.debug(user);
+      //       return JSON.stringify(userDAO.convertToBusinessClass());;
+      //     })
+      // })
+      let users = await results;
+      let newUsers = users[0].map(
+        enity => {
+            let userDAO: UserDOA = new UserDOA(enity);
+            enity = userDAO.convertToBusinessClass();
+            console.debug("The user data is...");
+            console.debug(userDAO.convertToBusinessClass());
+            return enity;
+        });
+
+      return await newUsers; 
+
     } catch (err) {
       console.log(err);
     }

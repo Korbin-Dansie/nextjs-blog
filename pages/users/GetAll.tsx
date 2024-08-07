@@ -23,12 +23,9 @@ export default function Page() {
 
   return <div>
     <ul>
-        <li>Super Data</li>
         {data.map((user) => (
-          
             <li key={user.id}>{user.firstName}</li>
         ))}
-
     </ul>
   </div>;
 }

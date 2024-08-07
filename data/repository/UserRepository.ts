@@ -29,29 +29,28 @@ export class UserRepository<User> implements IRepository<User> {
       const results = this._dbContext.connection.query(
         `SELECT * FROM ${this.tableName};`
       )
-      // results.resolve(results.map((entity: UserDOA) => {entity.convert()}))
-      // results.resolve(console.debug("Got Here"))
-      // await results.then(
-      //   enity => {
-      //     enity[0].forEach(user => {
-      //       let userDAO: UserDOA = new UserDOA(user);
-      //       user = JSON.stringify(userDAO.convertToBusinessClass());
-      //       console.debug("The user data is...");
-      //       console.debug(user);
-      //       return JSON.stringify(userDAO.convertToBusinessClass());;
-      //     })
+
       // })
       let users = await results;
-      let newUsers = users[0].map(
-        enity => {
-            let userDAO: UserDOA = new UserDOA(enity);
-            enity = userDAO.convertToBusinessClass();
-            console.debug("The user data is...");
-            console.debug(userDAO.convertToBusinessClass());
-            return enity;
-        });
+      // let newUsers = users[0].map(
+      //   enity => {
+      //       let userDAO: UserDOA = new UserDOA(enity);
+      //       enity = userDAO.convertToBusinessClass();
+      //       console.debug("The user data is...");
+      //       console.debug(userDAO.convertToBusinessClass());
+      //       return enity;
+      //   });
 
-      return await newUsers; 
+      for (let index = 0; index < users[0].length; index++) {
+        let enity = users[0][index];
+        let userDAO: UserDOA = new UserDOA(enity);
+        let user = userDAO.convertToBusinessClass();
+        users[0][index] = user;
+        console.debug("The user data is...");
+        console.debug(userDAO.convertToBusinessClass());
+      }
+
+      return await users[0]; 
 
     } catch (err) {
       console.log(err);

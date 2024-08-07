@@ -24,49 +24,40 @@ export class UserRepository<User> implements IRepository<User> {
     }
   }
 
-  public async getAll(): Promise<User[]> {
+  async getAll(): Promise<User[]> {
     try {
+      // Query the db for users
       const results = this._dbContext.connection.query(
         `SELECT * FROM ${this.tableName};`
       )
-
-      // })
+      
+      // Change the db user feilds into bussiness class users
       let users = await results;
-      // let newUsers = users[0].map(
-      //   enity => {
-      //       let userDAO: UserDOA = new UserDOA(enity);
-      //       enity = userDAO.convertToBusinessClass();
-      //       console.debug("The user data is...");
-      //       console.debug(userDAO.convertToBusinessClass());
-      //       return enity;
-      //   });
-
-      for (let index = 0; index < users[0].length; index++) {
-        let enity = users[0][index];
+      users[0].forEach((enity, index) => {
         let userDAO: UserDOA = new UserDOA(enity);
         let user = userDAO.convertToBusinessClass();
+        console.log(this);
         users[0][index] = user;
-        console.debug("The user data is...");
-        console.debug(userDAO.convertToBusinessClass());
-      }
+      });
 
-      return await users[0]; 
+      // Return an array of users
+      return users[0]; 
 
     } catch (err) {
       console.log(err);
     }
   }
-  create(entity: User): Promise<undefined> {
+  create(entity: User): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  update(entity: User): Promise<undefined> {
+  update(entity: User): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  delete(entity: User): Promise<undefined> {
+  delete(entity: User): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
 
-  save(entity: User): Promise<void> {
+  save(entity: User): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
 }

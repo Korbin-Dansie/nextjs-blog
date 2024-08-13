@@ -3,7 +3,7 @@ import { IRepository } from "../interface/IRepository";
 import { UserDOA } from "./data.access.object/userDAO";
 import { User } from "../../core/models/user";
 
-export class UserRepository<User> implements IRepository<User> {
+export class UserRepository implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
   private tableName: string;
 
@@ -11,7 +11,7 @@ export class UserRepository<User> implements IRepository<User> {
     this._dbContext = new ApplicationDbContext();
     this.tableName = "user";
   }
-  
+
   getById(id: string): Promise<User | undefined> {
     try {
       const [results] = this._dbContext.connection.query(
@@ -29,8 +29,8 @@ export class UserRepository<User> implements IRepository<User> {
       // Query the db for users
       const results = this._dbContext.connection.query(
         `SELECT * FROM ${this.tableName};`
-      )
-      
+      );
+
       // Change the db user feilds into bussiness class users
       let users = await results;
       users[0].forEach((enity, index) => {
@@ -41,15 +41,28 @@ export class UserRepository<User> implements IRepository<User> {
       });
 
       // Return an array of users
-      return users[0]; 
-
+      return users[0];
     } catch (err) {
       console.log(err);
     }
   }
-  create(entity: User): Promise<boolean> {
-    throw new Error("Method not implemented.");
+
+  async create(entity: User): Promise<boolean> {
+    try {
+      // Query the db for users
+      const results = this._dbContext.connection.execute(
+        `INSERT INTO ${this.tableName} (first_name,last_name, email, hashed_password, salt) VALUES (?, ?, ?, ?, ?);`,
+        [entity.firstName, entity.lastName, entity.email, entity.hashedPassword, entity.salt]
+      );
+    
+
+      // Return an array of users
+      return await results;
+    } catch (err) {
+      console.log(err);
+    }
   }
+
   update(entity: User): Promise<boolean> {
     throw new Error("Method not implemented.");
   }

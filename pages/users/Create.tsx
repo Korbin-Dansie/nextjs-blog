@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { User } from "../../core/models/user";
 import { FormEvent } from "react";
+import { genSalt } from "../../core/use_cases/encryption";
 
 export default function Page() {
   const {
@@ -10,6 +11,9 @@ export default function Page() {
   } = useForm<User>();
 
   const onSubmit: SubmitHandler<User> = async (user: User) => {
+    let salt = genSalt();
+    console.log("Salt: " + salt);
+
     const response = await fetch("/api/users/Create", {
       method: "POST",
       body: JSON.stringify(user),
@@ -104,7 +108,9 @@ export default function Page() {
 
       <input type="text" name="salt" {...register("salt")} />
 
-      <button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Sign Up"}</button>
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Submitting..." : "Sign Up"}
+      </button>
     </form>
   );
 }

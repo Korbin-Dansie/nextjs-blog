@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { User } from "../../core/models/user";
 import { FormEvent } from "react";
-import { genSalt } from "../../core/use_cases/encryption";
+import { genSalt, cryptPassword } from "../../services/encryption";
 
 export default function Page() {
   const {
@@ -12,7 +12,10 @@ export default function Page() {
 
   const onSubmit: SubmitHandler<User> = async (user: User) => {
     let salt = genSalt();
-    console.log("Salt: " + salt);
+    let hashWord = cryptPassword(user.hashedPassword, salt);
+
+    user.salt = salt;
+    user.hashedPassword = hashWord;
 
     const response = await fetch("/api/users/Create", {
       method: "POST",

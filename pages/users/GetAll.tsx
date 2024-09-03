@@ -22,10 +22,10 @@ export default function Page() {
 
 
   return <div>
-    <ul>
+    <table>
         {data.map((user) => (
-            <li key={user.id}>{user.firstName}</li>
+            <tr key={user.id}><td>{user.firstName}</td><td>{user.hashedPassword}</td><td>{user.salt}</td></tr>
         ))}
-    </ul>
+    </table>
   </div>;
 }

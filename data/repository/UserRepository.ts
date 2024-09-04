@@ -1,7 +1,8 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
-import { UserDOA } from "./data.access.object/userDAO";
+import { IUserRow, UserDOA, userConvertToBusinessClass } from "./data.access.object/userDAO";
 import { User } from "../../core/models/user";
+import mysql, { FieldPacket } from "mysql2/promise";
 
 export class UserRepository implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
@@ -18,31 +19,32 @@ export class UserRepository implements IRepository<User> {
         "SELECT * FROM ? WHERE `id` = ?",
         [this.tableName, id]
       );
-      return results;
+      return results
     } catch (err) {
       console.log(err);
+      throw(err);
     }
   }
 
   async getAll(): Promise<User[]> {
     try {
       // Query the db for users
-      const results = this._dbContext.connection.query(
+      const [results] = await this._dbContext.connection.query<IUserRow[]>(
         `SELECT * FROM ${this.tableName};`
       );
 
       // Change the db user feilds into bussiness class users
-      let users = await results;
-      users[0].forEach((enity, index) => {
-        let userDAO: UserDOA = new UserDOA(enity);
-        let user = userDAO.convertToBusinessClass();
-        users[0][index] = user;
+      let users: User[] = [];
+      results.forEach((enity: IUserRow, index: number) => {
+        let newUser = userConvertToBusinessClass(enity);
+        users.push(newUser);
       });
 
       // Return an array of users
-      return users[0];
+      return users;
     } catch (err) {
       console.log(err);
+      throw(err);
     }
   }
 
@@ -59,6 +61,7 @@ export class UserRepository implements IRepository<User> {
       return await results;
     } catch (err) {
       console.log(err);
+      throw(err);
     }
   }
 

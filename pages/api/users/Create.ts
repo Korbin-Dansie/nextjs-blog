@@ -16,6 +16,7 @@ export default async function handler(
   );
 
   const users = new UserRepository();
+
   const success = await users.create(user);
   res.status(200).json({ success });
 }

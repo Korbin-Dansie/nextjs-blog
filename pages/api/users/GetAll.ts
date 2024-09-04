@@ -23,8 +23,7 @@ export default async function handler(
 
     const response = {
       error: (err as Error).message,
-
-      returnedStatus: 200,
+      returnedStatus: 400,
     }
 
     return res.json(response)

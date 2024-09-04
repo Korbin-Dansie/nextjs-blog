@@ -12,8 +12,7 @@ export default async function handler(
     data.firstName,
     data.lastName,
     data.email,
-    data.hashedPassword,
-    data.salt
+    data.hashedPassword
   );
 
   const users = new UserRepository();

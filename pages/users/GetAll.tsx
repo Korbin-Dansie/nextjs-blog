@@ -18,13 +18,11 @@ export default function Page() {
 
   if (isLoading) return <p>Loading...</p>;
   if (data.length == 0) return <p>No user data</p>;
-  console.log(data)
-
 
   return <div>
     <table>
         {data.map((user) => (
-            <tr key={user.id}><td>{user.firstName}</td><td>{user.hashedPassword}</td><td>{user.salt}</td></tr>
+            <tr key={user.id}><td>{user.firstName}</td><td>{user.hashedPassword}</td></tr>
         ))}
     </table>
   </div>;

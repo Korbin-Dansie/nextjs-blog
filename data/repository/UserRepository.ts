@@ -36,7 +36,6 @@ export class UserRepository implements IRepository<User> {
       users[0].forEach((enity, index) => {
         let userDAO: UserDOA = new UserDOA(enity);
         let user = userDAO.convertToBusinessClass();
-        console.log(this);
         users[0][index] = user;
       });
 
@@ -51,8 +50,8 @@ export class UserRepository implements IRepository<User> {
     try {
       // Query the db for users
       const results = this._dbContext.connection.execute(
-        `INSERT INTO ${this.tableName} (first_name,last_name, email, hashed_password, salt) VALUES (?, ?, ?, ?, ?);`,
-        [entity.firstName, entity.lastName, entity.email, entity.hashedPassword, entity.salt]
+        `INSERT INTO ${this.tableName} (first_name,last_name, email, hashed_password) VALUES (?, ?, ?, ?);`,
+        [entity.firstName, entity.lastName, entity.email, entity.hashedPassword]
       );
     
 

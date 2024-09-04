@@ -1,18 +1,20 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
   return (
     <>
+      <h1 className="text-3xl font-bold underline text-green-600">Hello world!</h1>
+
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className={styles.title}>
-        Read <Link href="/posts/first-post">this page!</Link>
+      <h1>
+        <span className="font-bold underline text-green-600">Read</span>{" "}
+        <Link href="/posts/first-post">this page!</Link>
       </h1>
       <Image
         src="/images/dragon_red.png" // Route of the image file

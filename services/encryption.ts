@@ -8,13 +8,13 @@ const SALT_VALUE: number = 10;
  * @param {string} password Users password
  * @returns {Promise<string>} Returns the hased password
  */
-export async function cryptPassword(password): Promise<string> {
+export async function cryptPassword(password: string): Promise<string> {
   const myPromise: Promise<string> = new Promise((resolve, reject) => {
-    bcrypt.genSalt(SALT_VALUE, function (err, salt) {
+    bcrypt.genSalt(SALT_VALUE, function (err: string, salt: string) {
       if (err) {
         reject(err);
       }
-      bcrypt.hash(password, salt, function (err, hash: string) {
+      bcrypt.hash(password, salt, function (err: string, hash: string) {
         if (err) {
           reject(err);
         }
@@ -25,8 +25,16 @@ export async function cryptPassword(password): Promise<string> {
   return myPromise;
 }
 
-export function comparePassword(password, salt, hashword, callback) {
-  bcrypt.compare(password + salt, hashword, function (err, isPasswordMatch) {
-    return err == null ? callback(null, isPasswordMatch) : callback(err);
+export async function comparePassword(password: string, salt: string, hashword: string): Promise<boolean> {
+  const myPromise: Promise<boolean> = new Promise((resolve, reject) => {
+  bcrypt.compare(password + salt, hashword, function (err: string, isPasswordMatch: boolean) {
+      if(err == null){
+        resolve(isPasswordMatch);
+      }
+      else{
+        reject(err);
+      }
+    });
   });
+  return myPromise;
 }

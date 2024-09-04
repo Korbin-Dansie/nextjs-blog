@@ -52,7 +52,7 @@ export default async function handler(
     // // return the results as a JSON API response
     const users = new UserRepository();
 
-    let [results] = await users.findAll();
+    let [results] = await users.getAll();
 
     return res.json(results)
   } catch (err) {

@@ -2,7 +2,7 @@ import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
 import { IUserRow, UserDOA, userConvertToBusinessClass } from "./data.access.object/userDAO";
 import { User } from "../../core/models/user";
-import mysql, { FieldPacket } from "mysql2/promise";
+import mysql, { FieldPacket, ResultSetHeader } from "mysql2/promise";
 
 export class UserRepository implements IRepository<User> {
   private _dbContext: ApplicationDbContext;
@@ -51,14 +51,14 @@ export class UserRepository implements IRepository<User> {
   async create(entity: User): Promise<boolean> {
     try {
       // Query the db for users
-      const results = this._dbContext.connection.execute(
+      const results = await this._dbContext.connection.execute<ResultSetHeader>(
         `INSERT INTO ${this.tableName} (first_name,last_name, email, hashed_password) VALUES (?, ?, ?, ?);`,
         [entity.firstName, entity.lastName, entity.email, entity.hashedPassword]
       );
     
 
       // Return an array of users
-      return await results;
+      return results[0].affectedRows > 0;
     } catch (err) {
       console.log(err);
       throw(err);

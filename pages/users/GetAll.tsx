@@ -39,7 +39,8 @@ export default function Page() {
         <tbody>
           {data.map((user) => (
             <tr key={user.id}>
-              <td>{user.firstName}</td>
+              <td>{user.id}</td>
+              <td>{user.firstName + " " + user.lastName}</td>
               <td>{user.hashedPassword}</td>
             </tr>
           ))}

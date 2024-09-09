@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { User } from "../../core/models/user";
-import { cryptPassword } from "../../services/encryption";
 import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
+import { cryptPassword } from "../../services/encryption";
 
 export default function Page() {
   const {

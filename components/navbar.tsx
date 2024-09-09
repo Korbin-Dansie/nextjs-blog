@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import LoginButton from "../components/login.button";
 
 export default function NavBar() {
+  const { data: session } = useSession();
+  // const { accessToken } = session;
+
   return (
     <nav className="bg-blue-300 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -26,17 +31,44 @@ export default function NavBar() {
               </a>
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
-                aria-current="page"
-              >
-                Login / Register
-              </a>
+              <LoginButton />
+            </li>
+            <li>{session ? <SignOut /> : <SignIn />}</li>
+            <li>
+              <SignOut />
             </li>
           </ul>
         </div>
       </div>
     </nav>
+  );
+}
+
+function SignOut() {
+  return (
+    <button
+      onClick={() => signOut()}
+      className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    >
+      Sign out
+    </button>
+  );
+}
+
+function SignIn() {
+  return (
+    // <Link
+    //   href="/api/auth/signIn"
+    //   className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    //   aria-current="page"
+    // >
+    //   Signin / Register
+    // </Link>
+    <button
+      onClick={() => signIn()}
+      className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    >
+      Signin / Register
+    </button>
   );
 }

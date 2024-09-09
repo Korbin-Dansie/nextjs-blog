@@ -1,20 +1,42 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function LoginButton() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   if (session) {
     return (
       <>
-        Signed in as {session.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <span>Hello {session.user?.name} <SignOut /></span>
       </>
-    )
+    );
   }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  )
+  return <SignIn/ >;
 }
 
+function SignOut() {
+  return (
+    <button
+      onClick={() => signOut()}
+      className="py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    >
+      Sign out
+    </button>
+  );
+}
+
+function SignIn() {
+  return (
+    // <Link
+    //   href="/api/auth/signIn"
+    //   className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    //   aria-current="page"
+    // >
+    //   Signin / Register
+    // </Link>
+    <button
+      onClick={() => signIn()}
+      className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
+    >
+      Signin / Register
+    </button>
+  );
+}

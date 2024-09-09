@@ -16,11 +16,30 @@ export class UserRepository implements IRepository<User> {
   async getById(id: string): Promise<User | undefined> {
     try {
       const [results] = await this._dbContext.connection.query<IUserRow[]>(
-        "SELECT * FROM ? WHERE `id` = ?",
-        [this.tableName, id]
+        `SELECT * FROM ${this.tableName} WHERE \`id\` = ?`,
+        [id]
       );
       let user: User = userConvertToBusinessClass(results[0]);
       return user;
+    } catch (err) {
+      console.log(err);
+      throw(err);
+    }
+  }
+
+  async getByEmail(email: string): Promise<User | undefined> {
+    try {
+      const [results] = await this._dbContext.connection.query<IUserRow[]>(
+        `SELECT * FROM ${this.tableName} WHERE \`email\` = ?`,
+        [email]
+      );
+      if(results.length > 0){
+        let user: User = userConvertToBusinessClass(results[0]);
+        return user;  
+      }
+      else{
+        return;
+      }
     } catch (err) {
       console.log(err);
       throw(err);

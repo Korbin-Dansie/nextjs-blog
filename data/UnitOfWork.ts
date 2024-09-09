@@ -1,17 +1,16 @@
 import { IUnitOfWork } from "../data/interface/IUnitOfWork";
 import { IRepository } from "../data/interface/IRepository";
 import { User } from "../core/models/user";
-import { GenericRepository } from "./GenericRepository";
 import { ApplicationDbContext } from "./ApplicationDbContext";
+import { UserRepository } from "./repository/UserRepository";
 
 
 export class UnitOfWork implements IUnitOfWork {
 
-    private users: IRepository<User>;
+    private usersRepository: UserRepository;
 
-    constructor() {
-
-      this.users = new GenericRepository<User>();
+    constructor(){
+      this.usersRepository = new UserRepository();
     }
   
     async begin(): Promise<void> {
@@ -29,8 +28,8 @@ export class UnitOfWork implements IUnitOfWork {
       throw new Error('Method not implemented.');
     }
   
-    user(): IRepository<User> {
-      return this.users;
+    users(): UserRepository {
+      return this.usersRepository;
     }
   
   }

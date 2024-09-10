@@ -25,9 +25,9 @@ export async function cryptPassword(password: string): Promise<string> {
   return myPromise;
 }
 
-export async function comparePassword(password: string, salt: string, hashword: string): Promise<boolean> {
+export async function comparePassword(password: string, hashword: string): Promise<boolean> {
   const myPromise: Promise<boolean> = new Promise((resolve, reject) => {
-  bcrypt.compare(password + salt, hashword, function (err: string, isPasswordMatch: boolean) {
+  bcrypt.compare(password, hashword, function (err: string, isPasswordMatch: boolean) {
       if(err == null){
         resolve(isPasswordMatch);
       }

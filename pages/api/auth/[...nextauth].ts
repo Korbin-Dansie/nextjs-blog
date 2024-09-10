@@ -1,4 +1,5 @@
 import { UnitOfWork } from "@/data/UnitOfWork";
+import { comparePassword } from "@/services/encryption";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -24,6 +25,11 @@ const authOptions = {
         const dbUser = await unitOfWork.users().getByEmail(credentials!.email);
 
         if (dbUser) {
+          let passwordsMatch = await comparePassword(credentials!.password, dbUser.hashedPassword);
+
+          if(passwordsMatch == false){
+            return null;
+          }
           // Any object returned will be saved in `user` property of the JWT
           const user = {
             id: dbUser.id,
@@ -31,7 +37,7 @@ const authOptions = {
             lastName: dbUser.lastName,
             email: dbUser.email,
           };
-          console.log(user);
+
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.

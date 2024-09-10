@@ -41,6 +41,7 @@ export default function Page() {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.firstName + " " + user.lastName}</td>
+              <td>{user.email}</td>
               <td>{user.hashedPassword}</td>
             </tr>
           ))}

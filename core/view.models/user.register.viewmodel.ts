@@ -1,9 +1,8 @@
-export class User {
+export class UserRegisterViewModel {
   constructor(
-    public id: number,
     public firstName: string,
     public lastName: string,
     public email: string,
-    public hashedPassword: string
+    public password: string
   ) {}
 }

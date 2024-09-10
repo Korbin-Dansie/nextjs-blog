@@ -8,7 +8,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline text-green-600">Hello world!</h1>
 
       <Head>
-        <title>Create Next App</title>
+        <title>My Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

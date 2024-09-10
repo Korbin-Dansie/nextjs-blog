@@ -5,7 +5,7 @@ export default function LoginButton() {
   if (session) {
     return (
       <>
-        <span>Hello {session.user?.name} <SignOut /></span>
+        <span>Hello <b>{session.user?.firstName}</b> <SignOut /></span>
       </>
     );
   }

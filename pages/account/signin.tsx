@@ -1,8 +1,9 @@
+"use client"
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next";
-import { getCsrfToken } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { UserLoginViewModel } from "@/core/view.models/user.login.viewmodel";
 
@@ -15,19 +16,14 @@ export default function SignIn({
     formState: { errors, isSubmitting },
   } = useForm<UserLoginViewModel>();
 
-  const onSubmit: SubmitHandler<UserLoginViewModel> = async (user: UserLoginViewModel) => {
+  const onSubmit: SubmitHandler<UserLoginViewModel> = async (
+    user: UserLoginViewModel
+  ) => {
     // Hash the password
-
+    console.log(user);
     // Send Data to API to register user
-    const response = await fetch("/api/auth/callback/credentials", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-
+    const result = await signIn("Credentials", { email: user.email, password: user.password, redirect: true, callbackUrl: "/"  });
+    console.log(result);
     // Handle response if necessary
     // const data = await response.json();
   };
@@ -38,14 +34,18 @@ export default function SignIn({
         onSubmit(data);
       })}
     >
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+      <input
+        {...register("csrfToken")}
+        type="hidden"
+        defaultValue={csrfToken}
+      />
       <label>
         Username
-        <input name="username" type="text" />
+        <input {...register("email")} type="text" />
       </label>
       <label>
         Password
-        <input name="password" type="password" />
+        <input {...register("password")} type="password" />
       </label>
       <button type="submit">Sign in</button>
     </form>

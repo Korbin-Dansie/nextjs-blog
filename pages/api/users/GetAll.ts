@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { UserRepository } from '../../../data/repository/UserRepository'
+import { UnitOfWork } from '@/data/UnitOfWork';
 
 // define and export the GET handler function
 
@@ -12,7 +12,8 @@ export default async function handler(
   ) {
   try {
     // connect to database
-    const users = new UserRepository();
+    const unitOfWork = new UnitOfWork();
+    const users = unitOfWork.users();
 
     let results = await users.getAll();
 

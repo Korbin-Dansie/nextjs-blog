@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../../core/models/user";
-import { UserRepository } from "../../../data/repository/UserRepository";
+import { UnitOfWork } from "@/data/UnitOfWork";
 import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
 
 export default async function handler(
@@ -15,17 +15,16 @@ export default async function handler(
     data.email,
     data.password
   );
-
-  const users = new UserRepository();
-  try{
+  const unitOfWork = new UnitOfWork();
+  const users = unitOfWork.users();
+  try {
     const success = await users.create(user);
-    res.status(200).json({ success });  
-  }
-  catch (err) {
+    res.status(200).json({ success });
+  } catch (err) {
     console.log(err);
     res.status(400).json({
       status: "fail",
-      message: "Oops! Something went wrong when trying to create your account!"
+      message: "Oops! Something went wrong when trying to create your account!",
     });
   }
 }

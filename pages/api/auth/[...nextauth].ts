@@ -75,7 +75,7 @@ const authOptions = {
       // signOut: '/account/signout',
       // error: '/account/error', // Error code passed in query string as ?error=
       // verifyRequest: '/account/verify-request', // (used for check email message)
-      // newUser: '/account/register' // New users will be directed here on first sign in (leave the property out if not of interest)
+      newUser: '/account/register' // New users will be directed here on first sign in (leave the property out if not of interest)
     }
 };
 export default NextAuth(authOptions);

@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
 import { cryptPassword } from "../../services/encryption";
+import { useRouter } from 'next/router'
 
 export default function Page() {
   const {
@@ -24,8 +25,11 @@ export default function Page() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      
     });
-
+    
+    // Redirect to login page if not authenticated
+    window.location.href = "/account/signin";
     // Handle response if necessary
     // const data = await response.json();
   };

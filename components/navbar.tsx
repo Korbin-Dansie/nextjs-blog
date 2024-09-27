@@ -20,23 +20,16 @@ export default function NavBar() {
           </span>
         </Link>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-inherit dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="font-medium flex flex-col p-2 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-inherit dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-            <Link href="/"
-                className="block py-2 px-3 text-black bg-black rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-white"
-                aria-current="page"
-              >
+              <Link href="/" className="btn btn-ghost" aria-current="page">
                 Home
               </Link>
             </li>
-            <li>
-              <LoginButton />
-            </li>
+            <LoginButton />
           </ul>
         </div>
       </div>
     </nav>
   );
 }
-
-

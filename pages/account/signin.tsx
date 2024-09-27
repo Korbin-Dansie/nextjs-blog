@@ -29,7 +29,6 @@ export default function SignIn({
       redirect: true,
       callbackUrl: "/",
     });
-    console.log(result);
     // Handle response if necessary
     // const data = await response.json();
   };

@@ -1,7 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
 import { cryptPassword } from "../../services/encryption";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Page() {
   const {
@@ -25,9 +26,8 @@ export default function Page() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      
     });
-    
+
     // Redirect to login page if not authenticated
     window.location.href = "/account/signin";
     // Handle response if necessary
@@ -38,7 +38,9 @@ export default function Page() {
     <div className="flex items-center justify-center">
       <div className="card bg-base-100 w-3/4 md:w-2/4 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title text-primary">Sign Up</h2>
+          <h1 className="card-title text-3xl font-bold leading-7">
+            Create account
+          </h1>
           <form
             onSubmit={handleSubmit((data) => {
               onSubmit(data);
@@ -46,93 +48,78 @@ export default function Page() {
           >
             <div className="space-y-12">
               <div className="pb-2">
-                <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-8">
+                <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-4">
                   <div className="col-span-2 lg:col-span-1">
-                    <label
-                      htmlFor="firstName"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      First name
+                    <label htmlFor="firstName" className="label">
+                      <span className="label-text">First name</span>
                     </label>
-                    <div className="mt-2">
                       <input
                         {...register("firstName")}
                         type="text"
                         autoComplete="given-name"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="input input-bordered w-full"
                       />
-                    </div>
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <label
-                      htmlFor="lastName"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Last name
+                    <label htmlFor="lastName" className="label">
+                      <span className="label-text">Last name</span>
                     </label>
-                    <div className="mt-2">
                       <input
                         {...register("lastName")}
                         type="text"
                         autoComplete="family-name"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="input input-bordered w-full"
                       />
-                    </div>
                   </div>
 
                   <div className="col-span-2">
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Email address
+                    <label htmlFor="email" className="label">
+                      <span className="label-text">Email address</span>
                     </label>
-                    <div className="mt-2">
                       <input
                         {...register("email")}
                         type="email"
                         autoComplete="email"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="input input-bordered w-full"
                       />
-                    </div>
                   </div>
 
                   <div className="col-span-2">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Password
+                    <label htmlFor="password" className="label">
+                      <span className="label-text">Password</span>
                     </label>
-                    <div className="mt-2">
                       <input
                         {...register("password")}
                         type="password"
                         autoComplete="new-password"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="input input-bordered w-full"
                       />
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="card-actions justify-end">
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type="button" className="btn btn-error">
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn btn-success"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Sign Up"}
-                </button>
-              </div>
+            <div className="card-actions mt-2">
+              <button
+                type="submit"
+                className="btn btn-block btn-success"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Sign Up"}
+              </button>
             </div>
           </form>
+          <hr className="my-6"></hr>
+          <div>
+            <p>
+              Already have an account?{" "}
+              <Link href="/account/signin" className="link link-info">
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
+        {/* End of Card Body */}
       </div>
     </div>
   );

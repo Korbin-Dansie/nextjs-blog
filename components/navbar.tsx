@@ -10,7 +10,7 @@ export default function NavBar() {
     <nav className="bg-primary">
       <div className="navbar flex-col md:flex-row max-w-screen-xl mx-auto p-4">
         <div className="flex-none md:flex-1">
-          <Link href="/" className="bg-secondary p-2 rounded">
+          <Link href="/" className="bg-accent p-2 rounded">
             {/* <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8"

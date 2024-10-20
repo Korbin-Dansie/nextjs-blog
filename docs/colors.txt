@@ -1,4 +1,8 @@
-#FFF9D0
-#CAF4FF
-#A0DEFF
-#5AB2FF
+#8ecae6 - Light Blue    - Primary
+#219ebc - Blue          - Secondary
+#023047 - Dark Blue 
+#ffb703 - Yellow        - Warning
+#fb8500 - Orange        - Accent
+
+#fbfdfe - Off White
+#011e2d - Off Black

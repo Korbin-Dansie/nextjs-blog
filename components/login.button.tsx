@@ -47,7 +47,7 @@ function SignIn() {
         </Link>
       </li>
       <li>
-        <button onClick={() => signIn()} className="btn btn-secondary">
+        <button onClick={() => signIn()} className="btn btn-accent">
           Signin
         </button>
       </li>

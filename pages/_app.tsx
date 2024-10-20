@@ -8,7 +8,7 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   return (
-    <div className="bg-base-100 min-h-screen">
+    <div className="bg-base-100 min-h-screen text-neutral">
       <SessionProvider session={session}>
         <Layout>
           <Component {...pageProps} />

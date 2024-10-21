@@ -11,7 +11,7 @@ import mysql from 'mysql2/promise'
 // and the IDBSettings object interface
 
 // import { GetDBSettings, IDBSettings } from '../data/db.connection'
-import { GetDBPoolSettings, IDBPoolSettings } from '../../../data/db.pool'
+import { GetDBPoolSettings, IDBPoolSettings } from '../../../data/DbPool'
 import { UserRepository } from '../../../data/repository/UserRepository'
 
 // 1. populate the connection parameters

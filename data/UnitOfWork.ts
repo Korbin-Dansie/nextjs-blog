@@ -3,14 +3,17 @@ import { IRepository } from "../data/interface/IRepository";
 import { User } from "../core/models/user";
 import { ApplicationDbContext } from "./ApplicationDbContext";
 import { UserRepository } from "./repository/UserRepository";
+import { BlogRepository } from "./repository/BlogRepository";
 
 
 export class UnitOfWork implements IUnitOfWork {
 
     private usersRepository: UserRepository;
+    private blogsRepository: BlogRepository;
 
     constructor(){
       this.usersRepository = new UserRepository();
+      this.blogsRepository = new BlogRepository();
     }
   
     async begin(): Promise<void> {
@@ -30,6 +33,10 @@ export class UnitOfWork implements IUnitOfWork {
   
     users(): UserRepository {
       return this.usersRepository;
+    }
+
+    blogs(): BlogRepository {
+      return this.blogsRepository;
     }
   
   }

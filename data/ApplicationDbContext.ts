@@ -1,5 +1,5 @@
 import mysql, { PoolOptions } from 'mysql2/promise'
-import { GetDBPoolSettings } from "./db.pool";
+import { GetDBPoolSettings } from "./DbPool";
 
 export class ApplicationDbContext {
     public readonly connection;

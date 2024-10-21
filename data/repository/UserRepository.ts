@@ -76,8 +76,7 @@ export class UserRepository implements IRepository<User> {
         [entity.firstName, entity.lastName, entity.email, entity.hashedPassword]
       );
     
-
-      // Return an array of users
+      // Return true if one or more rows were affected
       return results[0].affectedRows > 0;
     } catch (err) {
       console.log(err);

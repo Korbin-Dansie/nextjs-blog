@@ -10,7 +10,7 @@ export default function Page() {
   const rows = [];
 
   useEffect(() => {
-    fetch("/api/users/GetAll")
+    fetch("/api/users/get-all")
       .then((res) => {
         if (!res.ok) {
           throw Error("Could not fetch the user data.");

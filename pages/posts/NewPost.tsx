@@ -11,7 +11,7 @@ export default function Page() {
 
   const onSubmit: SubmitHandler<Blog> = async (blog: Blog) => {
     // Send Data to API to create a new blog post
-    const response = await fetch("/api/blogs/Create", {
+    const response = await fetch("/api/blogs/create", {
       method: "POST",
       body: JSON.stringify(blog),
       headers: {

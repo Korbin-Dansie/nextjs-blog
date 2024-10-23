@@ -19,7 +19,7 @@ export default function Page() {
     user.password = hashWord;
 
     // Send Data to API to register user
-    const response = await fetch("/api/users/Create", {
+    const response = await fetch("/api/users/create", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {

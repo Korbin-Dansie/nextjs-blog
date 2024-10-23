@@ -1,6 +1,6 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
-import { IUserRow, UserDOA, userConvertToBusinessClass } from "./data.access.object/userDAO";
+import { IUserRow, UserMapper, userConvertToBusinessClass } from "./data.access.object/userMapper";
 import { User } from "../../core/models/user";
 import mysql, { FieldPacket, ResultSetHeader } from "mysql2/promise";
 

@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
+import { UserRegisterViewModel } from "@/core/view.models/UserRegisterViewModel";
 import { cryptPassword } from "../../services/encryption";
 import { useRouter } from "next/router";
 import Link from "next/link";

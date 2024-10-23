@@ -1,16 +1,16 @@
 import { User } from "../../../core/models/user";
-import { IDataAccessObject } from "./IDataAccessObject";
+import { IDataMapper } from "./IDataMapper";
 import mysql, { RowDataPacket } from "mysql2/promise";
 
-export class UserDOA implements IDataAccessObject<User> {
+export class UserMapper implements IDataMapper<User> {
   public id: number;
   public first_name: string;
   public last_name: string;
   public email: string;
   public hashed_password: string;
 
-  constructor(json: UserDOA) {
-    const castedJson = json as UserDOA;
+  constructor(json: UserMapper) {
+    const castedJson = json as UserMapper;
 
     this.id = castedJson.id;
     this.first_name = castedJson.first_name;
@@ -27,7 +27,7 @@ export class UserDOA implements IDataAccessObject<User> {
     this.hashed_password = user.hashedPassword;
   }
 
-  public convertToBusinessClass(): User {
+  public mapData(): User {
     return new User(
       this.id,
       this.first_name,

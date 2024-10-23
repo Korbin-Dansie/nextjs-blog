@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "../../../core/models/user";
 import { UnitOfWork } from "@/data/UnitOfWork";
-import { UserRegisterViewModel } from "@/core/view.models/user.register.viewmodel";
+import { UserRegisterViewModel } from "@/core/view.models/UserRegisterViewModel";
 
 export default async function handler(
   req: NextApiRequest,

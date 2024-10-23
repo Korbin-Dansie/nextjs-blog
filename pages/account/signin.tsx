@@ -5,7 +5,7 @@ import type {
 } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { UserLoginViewModel } from "@/core/view.models/user.login.viewmodel";
+import { UserLoginViewModel } from "@/core/view.models/UserLoginViewModel";
 import Link from "next/link";
 
 export default function SignIn({

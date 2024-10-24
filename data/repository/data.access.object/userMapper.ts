@@ -1,41 +1,18 @@
 import { User } from "../../../core/models/user";
-import { IDataMapper } from "./IDataMapper";
 import mysql, { RowDataPacket } from "mysql2/promise";
 
-export class UserMapper implements IDataMapper<User> {
-  public id: number;
-  public first_name: string;
-  public last_name: string;
-  public email: string;
-  public hashed_password: string;
+export class UserMapper extends User {
+  private rowData: IUserRow;
 
-  constructor(json: UserMapper) {
-    const castedJson = json as UserMapper;
-
-    this.id = castedJson.id;
-    this.first_name = castedJson.first_name;
-    this.last_name = castedJson.last_name;
-    this.email = castedJson.email;
-    this.hashed_password = castedJson.hashed_password;
-  }
-
-  public convertToDataAccessClass(user: User) {
-    this.id = user.id;
-    this.first_name = user.firstName;
-    this.last_name = user.lastName;
-    this.email = user.email;
-    this.hashed_password = user.hashedPassword;
-  }
-
-  public mapData(): User {
-    return new User(
-      this.id,
-      this.first_name,
-      this.last_name,
-      this.email,
-      this.hashed_password
+  constructor(rowData: IUserRow) {
+    super(
+      rowData.id,
+      rowData.first_name,
+      rowData.last_name,
+      rowData.email,
+      rowData.hashed_password
     );
-    // return new User(1, "a", "b", "a", "a", "a");
+    this.rowData = rowData;
   }
 }
 
@@ -45,9 +22,4 @@ export interface IUserRow extends RowDataPacket {
   last_name: string;
   email: string;
   hashed_password: string;
-}
-
-export function userConvertToBusinessClass(user: IUserRow) {
-  let bussinessUser: User = new User(user.id, user.first_name, user.last_name, user.email, user.hashed_password);
-  return bussinessUser;
 }

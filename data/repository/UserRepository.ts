@@ -1,6 +1,6 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
-import { IUserRow, UserMapper, userConvertToBusinessClass } from "./data.access.object/userMapper";
+import { IUserRow, UserMapper } from "./data.access.object/userMapper";
 import { User } from "../../core/models/user";
 import mysql, { FieldPacket, ResultSetHeader } from "mysql2/promise";
 
@@ -19,7 +19,7 @@ export class UserRepository implements IRepository<User> {
         `SELECT * FROM ${this.tableName} WHERE \`id\` = ?`,
         [id]
       );
-      let user: User = userConvertToBusinessClass(results[0]);
+      let user: User = new UserMapper(results[0]);
       return user;
     } catch (err) {
       console.log(err);
@@ -34,7 +34,7 @@ export class UserRepository implements IRepository<User> {
         [email]
       );
       if(results.length > 0){
-        let user: User = userConvertToBusinessClass(results[0]);
+        let user: User = new UserMapper(results[0]);
         return user;  
       }
       else{
@@ -56,7 +56,7 @@ export class UserRepository implements IRepository<User> {
       // Change the db user feilds into bussiness class users
       let users: User[] = [];
       results.forEach((enity: IUserRow, index: number) => {
-        let newUser = userConvertToBusinessClass(enity);
+        let newUser = new UserMapper(results[0]);
         users.push(newUser);
       });
 

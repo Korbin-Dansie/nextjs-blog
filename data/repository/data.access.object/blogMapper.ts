@@ -1,7 +1,7 @@
-import { User } from "../../../core/models/user";
+import { Blog } from "@/core/models/blog";
 import mysql, { RowDataPacket } from "mysql2/promise";
 
-export class UserMapper extends Blog {
+export class BlogMapper extends Blog {
   private rowData: IBlogRow;
 
   constructor(rowData: IBlogRow) {

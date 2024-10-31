@@ -1,12 +1,8 @@
 import { ApplicationDbContext } from "../ApplicationDbContext";
 import { IRepository } from "../interface/IRepository";
-import {
-  IUserRow,
-  UserMapper,
-  userConvertToBusinessClass,
-} from "./data.access.object/userMapper";
 import { Blog } from "../../core/models/blog";
 import mysql, { FieldPacket, ResultSetHeader } from "mysql2/promise";
+import { BlogMapper, IBlogRow } from "./data.access.object/blogMapper";
 
 export class BlogRepository implements IRepository<Blog> {
   private _dbContext: ApplicationDbContext;
@@ -31,13 +27,19 @@ export class BlogRepository implements IRepository<Blog> {
   async getRecent(page: number, count: number = 10): Promise<Blog[]> {
     try {
       // Query the db for users
-      const results = await this._dbContext.connection.execute<ResultSetHeader>(
-        `INSERT INTO ${this.tableName} (id, user_id, title, body) VALUES (?, ?, ?, ?);`,
-        [entity.id, entity.userId, entity.title, entity.body]
+      const [results] = await this._dbContext.connection.query<IBlogRow[]>(
+        `SELECT * FROM ${this.tableName};`
       );
 
-      // Return true if one or more rows were affected
-      return results[0].affectedRows > 0;
+      // Change the db user feilds into bussiness class users
+      let blogPosts: Blog[] = [];
+      results.forEach((enity: IBlogRow, index: number) => {
+        let newBlogPost = new BlogMapper(results[0]);
+        blogPosts.push(newBlogPost);
+      });
+
+      // Return an array of users
+      return blogPosts;
     } catch (err) {
       console.log(err);
       throw err;
